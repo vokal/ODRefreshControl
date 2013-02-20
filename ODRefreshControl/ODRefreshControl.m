@@ -265,8 +265,9 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
     
     //Calculate some useful points and values
     CGFloat verticalShift = MAX(0, -((kMaxTopRadius + kMaxBottomRadius + kMaxTopPadding + kMaxBottomPadding) + offset));
-    CGFloat distance = MIN(kMaxDistance, fabs(verticalShift));
-    CGFloat percentage = 1 - (distance / kMaxDistance);
+    CGFloat maxDist = self.scrollView.frame.size.height/8;
+    CGFloat distance = MIN(maxDist, fabs(verticalShift));
+    CGFloat percentage = 1 - (distance / maxDist);
     
     CGFloat currentTopPadding = lerp(kMinTopPadding, kMaxTopPadding, percentage);
     CGFloat currentTopRadius = lerp(kMinTopRadius, kMaxTopRadius, percentage);
