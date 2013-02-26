@@ -12,8 +12,8 @@
 
 #define kTotalViewHeight    400
 #define kOpenedViewHeight   44
-#define kMinTopPadding      9
-#define kMaxTopPadding      5
+#define kMinTopPadding      10
+#define kMaxTopPadding      10
 #define kMinTopRadius       12.5
 #define kMaxTopRadius       16
 #define kMinBottomRadius    3
@@ -167,7 +167,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
 {
     if ([keyPath isEqualToString:@"contentInset"]) {
         if (!_ignoreInset) {
-            self.originalContentInset = [[change objectForKey:@"new"] UIEdgeInsetsValue];
+            self.originalContentInset = [change[@"new"] UIEdgeInsetsValue];
             self.frame = CGRectMake(0, -(kTotalViewHeight + self.scrollView.contentInset.top), self.scrollView.frame.size.width, kTotalViewHeight);
         }
         return;
@@ -177,7 +177,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
         return;
     }
 
-    CGFloat offset = [[change objectForKey:@"new"] CGPointValue].y + self.originalContentInset.top;
+    CGFloat offset = [change[@"new"] CGPointValue].y + self.originalContentInset.top;
     
     if (_refreshing) {
         if (offset != 0) {
@@ -367,13 +367,13 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
         CABasicAnimation *shapeAlphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
         shapeAlphaAnimation.duration = 0.1;
         shapeAlphaAnimation.beginTime = CACurrentMediaTime() + 0.1;
-        shapeAlphaAnimation.toValue = [NSNumber numberWithFloat:0];
+        shapeAlphaAnimation.toValue = @0.0f;
         shapeAlphaAnimation.fillMode = kCAFillModeForwards;
         shapeAlphaAnimation.removedOnCompletion = NO;
         [_shapeLayer addAnimation:shapeAlphaAnimation forKey:nil];
         CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
         alphaAnimation.duration = 0.1;
-        alphaAnimation.toValue = [NSNumber numberWithFloat:0];
+        alphaAnimation.toValue = @0.0f;
         alphaAnimation.fillMode = kCAFillModeForwards;
         alphaAnimation.removedOnCompletion = NO;
         [_arrowLayer addAnimation:alphaAnimation forKey:nil];
@@ -401,7 +401,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p)
     if (!_refreshing) {
         CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
         alphaAnimation.duration = 0.0001;
-        alphaAnimation.toValue = [NSNumber numberWithFloat:0];
+        alphaAnimation.toValue = @0.0f;
         alphaAnimation.fillMode = kCAFillModeForwards;
         alphaAnimation.removedOnCompletion = NO;
         [_shapeLayer addAnimation:alphaAnimation forKey:nil];
